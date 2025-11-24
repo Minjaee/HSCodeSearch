@@ -16,10 +16,9 @@ body {
 }
 
 /* 로고 */
-.HSCodeSearch-logo {
-    font-size: 50px;
-    font-weight: 600;
-    color: #ff4f4f; /* 화면에 보였던 빨간색 */
+.HSCodeSearch-logo img {
+    width: 600px;   /* 원하는 크기 */
+    height: auto;
     margin-bottom: 50px;
 }
 
@@ -42,6 +41,47 @@ body {
     color: #333;
 }
 
+
 .HSCodeSearch-search-box input::placeholder {
     color: #bbb;
+}
+
+
+/* input + 버튼 묶는 wrapper */
+.HS-input-wrapper {
+    width: 100%;
+    position: relative;
+}
+
+/* X 버튼 */
+.clear-btn {
+    position: absolute;
+    right: 45px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: #bbb;
+}
+
+/* Search 버튼 */
+.search-btn {
+    position: absolute;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #2B6DAA;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 20px;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.search-btn:hover {
+    background: #ff543f;
 }

@@ -11,13 +11,49 @@
 
 <div class="HSCodeSearch-wrapper">
 
-    <div class="HSCodeSearch-logo">HSCode Search</div>
-
-    <div class="HSCodeSearch-search-box">
-        <input type="text" placeholder="HSCode Search">
+    <div class="HSCodeSearch-logo">
+        <img src="/img/MainLogo.png" alt="logo">
     </div>
 
+
+    <div class="HSCodeSearch-search-box">
+        <div class="HS-input-wrapper">
+            <input id="searchInput" type="text" placeholder="HSCode Search">
+            <button id="clearBtn" class="clear-btn" style="display:none;">✕</button>
+            <button id="searchBtn" class="search-btn" style="display:none;">Search</button>
+        </div>
+    </div>
 </div>
+
+<!-- 검색창 X,Search 버튼 스크립트-->
+<script>
+    const input = document.getElementById('searchInput');
+    const clearBtn = document.getElementById('clearBtn');
+    const searchBtn = document.getElementById('searchBtn');
+
+    // 초기 상태 → 버튼 숨김
+    clearBtn.style.display = "none";
+    searchBtn.style.display = "none";
+
+    // 입력 감지
+    input.addEventListener('input', () => {
+        if (input.value.trim() === "") {
+            clearBtn.style.display = "none";
+            searchBtn.style.display = "none";
+        } else {
+            clearBtn.style.display = "block";
+            searchBtn.style.display = "block";
+        }
+    });
+
+    // X 버튼 → input 초기화
+    clearBtn.addEventListener('click', () => {
+        input.value = "";
+        clearBtn.style.display = "none";
+        searchBtn.style.display = "none";
+        input.focus();
+    });
+</script>
 
 </body>
 </html>
