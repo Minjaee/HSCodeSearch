@@ -23,6 +23,8 @@
             <button id="searchBtn" class="search-btn" style="display:none;">Search</button>
         </div>
     </div>
+
+    <div id="results" class="HSCodeSearch-results"></div>
 </div>
 
 <!-- 검색창 X,Search 버튼 스크립트-->
@@ -30,30 +32,59 @@
     const input = document.getElementById('searchInput');
     const clearBtn = document.getElementById('clearBtn');
     const searchBtn = document.getElementById('searchBtn');
+    const resultsBox = document.getElementById('results');
 
-    // 초기 상태 → 버튼 숨김
-    clearBtn.style.display = "none";
-    searchBtn.style.display = "none";
-
-    // 입력 감지
     input.addEventListener('input', () => {
         if (input.value.trim() === "") {
             clearBtn.style.display = "none";
             searchBtn.style.display = "none";
+            resultsBox.innerHTML = "";
         } else {
             clearBtn.style.display = "block";
             searchBtn.style.display = "block";
         }
     });
 
-    // X 버튼 → input 초기화
     clearBtn.addEventListener('click', () => {
         input.value = "";
         clearBtn.style.display = "none";
         searchBtn.style.display = "none";
+        resultsBox.innerHTML = "";
         input.focus();
     });
+
+    async function doSearch() {
+        const keyword = input.value.trim();
+        if (keyword === "") return;
+
+        resultsBox.innerHTML = "<p>검색 중...</p>";
+
+        const res = await fetch(`/api/search?q=${encodeURIComponent(keyword)}`);
+        const data = await res.json();
+
+        if (data.length === 0) {
+            resultsBox.innerHTML = `<p>"${keyword}" 검색 결과 없음</p>`;
+            return;
+        }
+
+        const html = data.map(item => `
+            <div class="result-item">
+                <div class="result-code">${item.code}</div>
+                <div class="result-name">${item.name}</div>
+                <div class="result-desc">${item.description}</div>
+            </div>
+        `).join("");
+
+        resultsBox.innerHTML = html;
+    }
+
+    searchBtn.addEventListener('click', doSearch);
+
+    input.addEventListener('keydown', (e) => {
+        if (e.key === "Enter") doSearch();
+    });
 </script>
+
 
 </body>
 </html>

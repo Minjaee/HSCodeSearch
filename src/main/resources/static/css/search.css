@@ -12,14 +12,15 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    padding-top: 300px;
 }
 
 /* 로고 */
 .HSCodeSearch-logo img {
-    width: 600px;   /* 원하는 크기 */
+    width: 550px;   /* 원하는 크기 */
     height: auto;
-    margin-bottom: 50px;
+    margin-bottom: 100px;
 }
 
 /* 검색창 박스 */
@@ -84,4 +85,25 @@ body {
 
 .search-btn:hover {
     background: #ff543f;
+}
+
+
+/* 검색결과 출력 */
+.HSCodeSearch-results {
+    width: 700px;
+    margin-top: 30px;
+}
+
+.result-item {
+    border: 1px solid #ddd;
+    padding: 14px 18px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    background: #fff;
+}
+
+.result-code {
+    font-weight: bold;
+    font-size: 18px;
+    color: #ff6b5f;
 }
