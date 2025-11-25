@@ -4,10 +4,36 @@
     <meta charset="UTF-8">
     <title>HSCode Search</title>
     <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="/css/menu.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
+
+<!-- 햄버거 메뉴 아이콘 -->
+<div class="hamburger" onclick="openMenu()">
+    <div></div>
+    <div></div>
+    <div></div>
+</div>
+
+<!-- 오른쪽 슬라이드 메뉴 -->
+<div id="sideMenu" class="side-menu">
+    <div class="menu-header">
+        <span class="id-badge">ID</span></span>
+        <span class="close-btn" onclick="closeMenu()">✕</span>
+    </div>
+
+    <div class="login-section">
+        <h2>Log in</h2>
+        <p>To save your bookmarks,<br>passwords, and cards</p>
+
+        <button class="login-btn">Log in</button>
+    </div>
+</div>
+
+<!-- JS -->
+<script src="/js/menu.js"></script>
 
 <div class="HSCodeSearch-wrapper">
 

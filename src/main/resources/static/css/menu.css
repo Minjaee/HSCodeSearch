@@ -1,0 +1,93 @@
+/* 햄버거 아이콘 */
+.hamburger {
+    position: fixed;
+    right: 40px;
+    top: 40px;
+    cursor: pointer;
+    z-index: 100;
+}
+.hamburger div {
+    width: 26px;
+    height: 3px;
+    background: #777;
+    margin: 5px 0;
+    border-radius: 4px;
+}
+
+/* 사이드 메뉴 전체 */
+.side-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: -380px;   /* 숨겨진 상태 */
+    width: 380px;
+    height: 100%;
+    background: #fff;
+    box-shadow: -5px 0 20px rgba(0,0,0,0.15);
+    transition: right 0.35s ease;
+    padding: 24px;
+    z-index: 99;
+    overflow-y: auto;
+    border-top-left-radius: 24px;
+    border-bottom-left-radius: 24px;
+}
+
+/* 메뉴 상단 */
+.menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-logo {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.id-badge {
+    border: 2px solid #111;
+    padding: 2px 5px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.close-btn {
+    font-size: 26px;
+    cursor: pointer;
+}
+
+/* Login 영역 */
+.login-section {
+    margin-top: 40px;
+}
+
+.login-section h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.login-section p {
+    color: #555;
+    margin-bottom: 26px;
+    line-height: 1.5;
+}
+
+/* Login 버튼 */
+.login-btn {
+    width: 100%;
+    padding: 14px;
+    background: #FF8037;
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    font-size: 17px;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-weight: 600;
+}
+
+.login-btn:hover {
+    background: #2B6DAA;
+}
