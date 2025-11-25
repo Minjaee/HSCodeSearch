@@ -52,6 +52,7 @@
 .close-btn {
     font-size: 26px;
     cursor: pointer;
+    color: #777;
 }
 
 /* Login 영역 */
