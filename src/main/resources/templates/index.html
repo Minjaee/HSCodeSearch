@@ -68,14 +68,28 @@
         }
 
         const html = data.map(item => `
-            <div class="result-item">
-                <div class="result-code">${item.code}</div>
-                <div class="result-name">${item.name}</div>
-                <div class="result-desc">${item.description}</div>
-            </div>
-        `).join("");
+        <div class="result-item">
+            <div class="result-code"><b>${formatHSCode(item.hsCode)}</b></div>
+            <div class="result-name">${item.nameKor ?? ""}</div>
+            <div class="result-eng">${item.nameEng ?? ""}</div>
+        </div>
+    `).join("");
 
         resultsBox.innerHTML = html;
+    }
+
+    function formatHSCode(code) {
+        if (!code) return "";
+        const clean = code.replace(/\D/g, "");
+
+        if (clean.length >= 10) {
+            return `${clean.slice(0,4)}.${clean.slice(4,6)}.${clean.slice(6,10)}`;
+        } else if (clean.length >= 6) {
+            return `${clean.slice(0,4)}.${clean.slice(4,6)}`;
+        } else if (clean.length >= 4) {
+            return clean.slice(0,4);
+        }
+        return clean;
     }
 
     searchBtn.addEventListener('click', doSearch);
