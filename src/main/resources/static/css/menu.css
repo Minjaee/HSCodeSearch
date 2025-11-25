@@ -1,8 +1,8 @@
 /* 햄버거 아이콘 */
 .hamburger {
     position: fixed;
-    right: 40px;
-    top: 40px;
+    right: 26px;
+    top: 50px;
     cursor: pointer;
     z-index: 100;
 }
@@ -18,18 +18,17 @@
 .side-menu {
     display: none;
     position: fixed;
-    top: 0;
-    right: -380px;   /* 숨겨진 상태 */
-    width: 380px;
-    height: 100%;
+    top: 30px;
+    right: -300px;   /* 숨겨진 상태 */
+    width: 300px;
+    height: 250px;
     background: #fff;
     box-shadow: -5px 0 20px rgba(0,0,0,0.15);
     transition: right 0.35s ease;
     padding: 24px;
     z-index: 99;
     overflow-y: auto;
-    border-top-left-radius: 24px;
-    border-bottom-left-radius: 24px;
+    border-radius: 24px;  /* 카드처럼 전체 둥글게 */
 }
 
 /* 메뉴 상단 */
