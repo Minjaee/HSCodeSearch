@@ -20,3 +20,11 @@ function closeMenu() {
         hamburger.style.display = "block"; // 햄버거 복구
     }, 350);                              // transition 0.35s 끝난 뒤
 }
+
+function goLogin() {
+    window.location.href = "/login";
+}
+
+function goMain() {
+    window.location.href = "/";
+}

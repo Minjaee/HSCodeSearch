@@ -20,15 +20,19 @@
 <!-- 오른쪽 슬라이드 메뉴 -->
 <div id="sideMenu" class="side-menu">
     <div class="menu-header">
-        <span class="id-badge">ID</span></span>
+        <div class="menu-logo" onclick="goMain()">
+            <img src="/img/MainLogo.png" alt="Logo">
+        </div>
         <span class="close-btn" onclick="closeMenu()">✕</span>
     </div>
+
 
     <div class="login-section">
         <h2>Log in</h2>
         <p>To save your bookmarks,<br>passwords, and cards</p>
 
-        <button class="login-btn">Log in</button>
+        <button class="login-btn" onclick="goLogin()">Log in</button>
+
     </div>
 </div>
 
