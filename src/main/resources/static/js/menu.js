@@ -8,7 +8,11 @@ function openMenu() {
     setTimeout(() => {
         menu.style.right = "0";           // 슬라이드 등장
     }, 10);
+
+    // ★ 로그인 상태 반영
+    loadMenuUserInfo();
 }
+
 
 function closeMenu() {
     const menu = document.getElementById("sideMenu");
@@ -27,4 +31,34 @@ function goLogin() {
 
 function goMain() {
     window.location.href = "/";
+}
+
+async function loadMenuUserInfo() {
+    const res = await fetch("/api/user");
+    const user = await res.json();
+
+    const usernameEl = document.querySelector(".login-section h2");
+    const emailEl = document.querySelector(".login-section p");
+    const btnEl = document.querySelector(".login-section .login-btn");
+
+    if (!user) {
+        // 로그인 안 됨
+        usernameEl.textContent = "Log in";
+        emailEl.innerHTML = "To save your bookmarks,<br>passwords, and cards";
+        btnEl.textContent = "Log in";
+        btnEl.onclick = goLogin;
+    } else {
+        // 로그인 됨
+        usernameEl.textContent = user.username;
+        emailEl.textContent = user.email;
+        btnEl.textContent = "Log out";
+        btnEl.onclick = doLogout;
+    }
+}
+
+
+async function doLogout() {
+    await fetch("/logout", { method: "POST" });
+    alert("로그아웃 되었습니다.");
+    window.location.reload();
 }
