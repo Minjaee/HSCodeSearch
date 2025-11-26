@@ -10,4 +10,14 @@ public class AuthPageController {
     public String loginPage() {
         return "login";  // templates/login.html 렌더링
     }
+
+
+    @GetMapping("/signup")
+    public String signUpPage() {
+        return "signup";  // signup.html
+    }
+
 }
+
+
+

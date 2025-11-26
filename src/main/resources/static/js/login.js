@@ -8,3 +8,7 @@ function doLogin() {
 function goMain() {
     window.location.href = "/";
 }
+
+function goSignUp() {
+    window.location.href = "/signup";
+}
