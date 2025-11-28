@@ -1,6 +1,6 @@
 package HSCodeSearch.HSCodeSearch;
 
-public class HSCodeEntry {
+public class    HSCodeEntry {
 
     private String code;
     private String name;

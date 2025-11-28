@@ -40,6 +40,8 @@ async function loadMenuUserInfo() {
     const usernameEl = document.querySelector(".login-section h2");
     const emailEl = document.querySelector(".login-section p");
     const btnEl = document.querySelector(".login-section .login-btn");
+    const bookmarkEl = document.getElementById("bookmark-area");
+    const menu = document.getElementById("sideMenu");
 
     if (!user) {
         // 로그인 안 됨
@@ -47,12 +49,16 @@ async function loadMenuUserInfo() {
         emailEl.innerHTML = "To save your bookmarks,<br>passwords, and cards";
         btnEl.textContent = "Log in";
         btnEl.onclick = goLogin;
+        bookmarkEl.style.display = "none";   // ★ 숨김
+        menu.classList.remove("large");
     } else {
         // 로그인 됨
         usernameEl.textContent = user.username;
         emailEl.textContent = user.email;
         btnEl.textContent = "Log out";
         btnEl.onclick = doLogout;
+        bookmarkEl.style.display = "block";  // ★ 표시
+        menu.classList.add("large");
     }
 }
 
@@ -61,4 +67,8 @@ async function doLogout() {
     await fetch("/logout", { method: "POST" });
     alert("로그아웃 되었습니다.");
     window.location.reload();
+}
+
+function goBookmark() {
+    window.location.href = "/bookmark";
 }

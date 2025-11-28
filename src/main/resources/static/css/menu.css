@@ -31,6 +31,10 @@
     border-radius: 24px;  /* 카드처럼 전체 둥글게 */
 }
 
+.side-menu.large {
+    height: 280px;   /* Bookmark 포함 충분한 높이 */ /* 로그인 후 메뉴 높이 */
+}
+
 /* 메뉴 상단 */
 .menu-header {
     display: flex;
@@ -88,4 +92,44 @@
 
 .login-btn:hover {
     background: #356B96;
+}
+
+
+.menu-divider {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 20px 0;
+}
+
+.menu-item {
+    display: flex;           /* ← 한 줄 정렬 핵심 */
+    align-items: center;     /* 아이콘·텍스트 수직 가운데 정렬 */
+    gap: 10px;               /* 아이콘과 텍스트 간격 */
+    font-size: 17px;
+    font-weight: 500;
+    color: #333;
+    padding: 14px 12px;
+    border-radius: 12px; /* 박스형 반응 */
+    margin: 6px 0;
+    cursor: pointer;
+    transition: background 0.18s ease;
+}
+
+/* 호버 시 박스 전체 배경이 은은하게 */
+.menu-item:hover {
+    background: #f2f3f5; /* 은은한 회색 (ChatGPT 스타일) */
+    color: #333;        /* 글씨색 변화 없음 */
+}
+
+/* 실제 클릭(활성) 시 */
+.menu-item:active {
+    background: #e6e7eb; /* 조금 더 진한 회색 */
+}
+
+
+.menu-icon {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    display: block;
 }

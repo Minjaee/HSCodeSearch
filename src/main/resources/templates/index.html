@@ -32,7 +32,13 @@
         <p>To save your bookmarks,<br>passwords, and cards</p>
 
         <button class="login-btn" onclick="goLogin()">Log in</button>
-
+        <!-- ★ 아래는 로그인 시에만 표시될 영역 -->
+        <div id="bookmark-area" style="display:none; margin-top:16px;">
+            <div class="menu-item" onclick="goBookmark()">
+                <img class="menu-icon" src="/img/bookmark_icon.png" alt="bookmark icon">
+                <span>Bookmark</span>
+            </div>
+            </div>
     </div>
 </div>
 
@@ -52,6 +58,7 @@
             <input id="searchInput" type="text" placeholder="HSCode Search">
             <button id="clearBtn" class="clear-btn" style="display:none;">✕</button>
             <button id="searchBtn" class="search-btn" style="display:none;">Search</button>
+
         </div>
     </div>
 
