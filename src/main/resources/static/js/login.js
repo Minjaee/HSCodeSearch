@@ -23,6 +23,10 @@ async function doLogin() {
     const result = await response.text();
 
     if (result === "success") {
+
+        // ⭐⭐⭐ 로그인 여부 체크를 위해 localStorage에 저장 (중요!)
+        localStorage.setItem("loginUser", id);
+
         window.location.href = "/";  // 메인으로 이동
     } else {
         alert(result);

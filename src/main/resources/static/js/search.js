@@ -39,6 +39,12 @@ async function doSearch() {
 
     const html = data.map(item => `
         <div class="result-item">
+
+            <!-- 북마크 아이콘 -->
+            <img src="/img/bookmark_icon.png"
+                 class="bookmark-icon"
+                 onclick="toggleBookmark('${item.hsCode}', '${item.nameKor ?? ""}', '${item.nameEng ?? ""}')">
+
             <div class="result-code"><b>${formatHSCode(item.hsCode)}</b></div>
             <div class="result-name">${item.nameKor ?? ""}</div>
             <div class="result-eng">${item.nameEng ?? ""}</div>
@@ -46,6 +52,8 @@ async function doSearch() {
     `).join("");
 
     resultsBox.innerHTML = html;
+
+    refreshBookmarkIcons();  // 저장된 북마크 표시 업데이트
 }
 
 function formatHSCode(code) {
@@ -67,3 +75,48 @@ searchBtn.addEventListener('click', doSearch);
 input.addEventListener('keydown', (e) => {
     if (e.key === "Enter") doSearch();
 });
+
+function isLoggedIn() {
+    return localStorage.getItem("loginUser") !== null;
+}
+
+function toggleBookmark(hsCode, nameKor, nameEng) {
+    if (!isLoggedIn()) {
+        alert("로그인이 필요합니다.");
+        window.location.href = "/login";
+        return;
+    }
+
+    let bookmarks = JSON.parse(localStorage.getItem("bookmarks") || "[]");
+
+    const exists = bookmarks.find(b => b.hsCode === hsCode);
+
+    if (exists) {
+        // 삭제
+        bookmarks = bookmarks.filter(b => b.hsCode !== hsCode);
+    } else {
+        // 추가
+        bookmarks.push({
+            hsCode,
+            nameKor,
+            nameEng
+        });
+    }
+
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+
+    refreshBookmarkIcons();
+}
+
+function refreshBookmarkIcons() {
+    const bookmarks = JSON.parse(localStorage.getItem("bookmarks") || "[]");
+
+    document.querySelectorAll(".result-item").forEach(card => {
+        const code = card.querySelector(".result-code").innerText.replace(/\./g, "").trim();
+        const icon = card.querySelector(".bookmark-icon");
+
+        const exists = bookmarks.find(b => b.hsCode.replace(/\D/g, "") === code);
+        if (exists) icon.classList.add("bookmarked");
+        else icon.classList.remove("bookmarked");
+    });
+}
