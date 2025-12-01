@@ -1,0 +1,86 @@
+body {
+    background: #ffffff;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.bookmark-wrapper {
+    width: 100%;
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 120px 20px 60px;
+}
+
+.bookmark-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #FF8037;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.bookmark-logo {
+    width: 100%;
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 40px;
+}
+
+.bookmark-logo img {
+    width: 300px;  /* 검색 페이지와 비슷한 느낌 */
+    height: auto;
+    cursor: pointer;
+}
+
+/* 검색결과 카드 스타일 재활용 */
+.result-item {
+    position: relative;
+    border: 1px solid #ddd;
+    padding: 18px 20px;
+    border-radius: 14px;
+    background: #fff;
+    margin-bottom: 14px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+}
+
+/* 삭제 버튼 */
+.delete-bookmark {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 18px;
+    cursor: pointer;
+    color: #888;
+    transition: 0.2s;
+}
+
+.delete-bookmark:hover {
+    color: #FF8037;
+}
+
+.empty-box {
+    margin-top: 100px;
+    text-align: center;
+    font-size: 18px;
+    color: #999;
+}
+
+.back-home-btn {
+    display: block;
+    width: 180px;
+    margin: 40px auto 0;
+    padding: 13px;
+    background: #FF8037;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.back-home-btn:hover {
+    background: #356B96;
+}

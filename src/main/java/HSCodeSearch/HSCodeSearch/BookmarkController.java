@@ -4,11 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class HomeController {
+public class BookmarkController {
 
-    @GetMapping("/")
-    public String home() {
-        return "index";  // templates/index.html 출력됨
+    @GetMapping("/bookmark")
+    public String bookmarkPage() {
+        return "bookmark";  // templates/bookmark.html
     }
-}
 
+}
