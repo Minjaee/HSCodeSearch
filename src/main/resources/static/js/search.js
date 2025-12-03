@@ -38,12 +38,12 @@ async function doSearch() {
     }
 
     const html = data.map(item => `
-        <div class="result-item">
+    <div class="result-item" onclick="openDetail('${item.hsCode}')">
 
             <!-- 북마크 아이콘 -->
-            <img src="/img/bookmark_icon.png"
-                 class="bookmark-icon"
-                 onclick="toggleBookmark('${item.hsCode}', '${item.nameKor ?? ""}', '${item.nameEng ?? ""}')">
+           <img src="/img/bookmark_icon.png"
+     class="bookmark-icon"
+     onclick="event.stopPropagation(); toggleBookmark('${item.hsCode}', '${item.nameKor ?? ""}', '${item.nameEng ?? ""}')">
 
             <div class="result-code"><b>${formatHSCode(item.hsCode)}</b></div>
             <div class="result-name">${item.nameKor ?? ""}</div>
@@ -119,4 +119,8 @@ function refreshBookmarkIcons() {
         if (exists) icon.classList.add("bookmarked");
         else icon.classList.remove("bookmarked");
     });
+}
+
+function openDetail(hsCode) {
+    window.location.href = `/detail?code=${hsCode}`;
 }

@@ -1,0 +1,32 @@
+.detail-wrapper {
+    width: 700px;
+    margin: 50px auto;
+    font-family: 'Inter', sans-serif;
+}
+
+.logo {
+    height: 24px;
+    cursor: pointer;
+}
+
+.back-btn {
+    margin-top: 20px;
+    padding: 10px 16px;
+    background: #FF8037;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.hs-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #FF8037;
+}
+
+.hs-names, .hs-desc {
+    margin-top: 20px;
+    font-size: 18px;
+}

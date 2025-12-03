@@ -8,4 +8,6 @@ public interface HSCodeRepository extends JpaRepository<HSCode, Long> {
     List<HSCode> findByHsCodeContainingOrNameKorContainingOrNameEngContaining(
             String hsCode, String nameKor, String nameEng
     );
+
+    HSCode findByHsCode(String hsCode);
 }

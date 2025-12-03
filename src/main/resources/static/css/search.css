@@ -129,3 +129,11 @@ body {
     color: #FF8037;
 }
 
+.result-item {
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.result-item:hover {
+    background: #FFF4EC; /* 연한 주황 */
+}
