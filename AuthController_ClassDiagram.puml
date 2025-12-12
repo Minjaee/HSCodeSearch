@@ -1,0 +1,100 @@
+@startuml AuthController Class Diagram
+
+package HSCodeSearch.HSCodeSearch {
+    
+    class AuthController {
+        - UserService userService
+        + signup(username: String, email: String, password: String): String
+        + login(id: String, password: String, session: HttpSession): String
+        + getLoginUser(session: HttpSession): Object
+        + logout(session: HttpSession): String
+    }
+    
+    class UserService {
+        - UserRepository userRepo
+        - BCryptPasswordEncoder passwordEncoder
+        + register(username: String, email: String, password: String): void
+        + login(usernameOrEmail: String, password: String): User
+    }
+    
+    class User {
+        - Long id
+        - String username
+        - String email
+        - String password
+        + getId(): Long
+        + getUsername(): String
+        + getEmail(): String
+        + getPassword(): String
+        + setId(id: Long): void
+        + setUsername(username: String): void
+        + setEmail(email: String): void
+        + setPassword(password: String): void
+    }
+    
+    interface UserRepository {
+        + existsByUsername(username: String): boolean
+        + existsByEmail(email: String): boolean
+        + findByUsername(username: String): User
+        + findByEmail(email: String): User
+    }
+    
+    class BCryptPasswordEncoder {
+        + encode(rawPassword: CharSequence): String
+        + matches(rawPassword: CharSequence, encodedPassword: String): boolean
+    }
+    
+    class HttpSession {
+        + setAttribute(name: String, value: Object): void
+        + getAttribute(name: String): Object
+        + invalidate(): void
+    }
+    
+    class HashMap {
+        + put(key: K, value: V): V
+    }
+    
+    class Map {
+        <<interface>>
+    }
+}
+
+' Relationships
+AuthController --> UserService : uses
+AuthController --> User : returns
+AuthController --> HttpSession : uses
+AuthController --> HashMap : creates
+AuthController --> Map : uses
+
+UserService --> UserRepository : uses
+UserService --> User : creates/returns
+UserService --> BCryptPasswordEncoder : uses
+
+UserRepository ..|> JpaRepository : extends
+UserRepository --> User : manages
+
+HashMap ..|> Map : implements
+
+note right of AuthController
+  Spring @Controller
+  Handles authentication endpoints:
+  - /signup
+  - /api/login
+  - /api/user
+  - /logout
+end note
+
+note right of UserService
+  Spring @Service
+  Business logic for:
+  - User registration
+  - User login
+end note
+
+note right of User
+  JPA @Entity
+  Represents user data
+end note
+
+@enduml
+
