@@ -1,21 +1,43 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>HSCode Detail</title>
-  <link rel="stylesheet" href="/css/detail.css">
+    <meta charset="UTF-8">
+    <title>HSCode Detail</title>
+    <link rel="stylesheet" href="/css/detail.css">
 </head>
 <body>
 
 <div class="detail-wrapper">
-  <div class="header">
-    <img src="/img/MainLogo.png" class="logo" onclick="goMain()">
-    <button class="back-btn" onclick="goBack()">← Back</button>
-  </div>
+    <div class="header">
+        <img src="/img/MainLogo.png" class="logo" onclick="goMain()">
+        <button class="back-btn" onclick="goBack()">← Back</button>
+    </div>
 
-  <div id="detail-content">
-    로딩 중...
-  </div>
+    <div id="detail-content">
+        <h2 id="hsCode" class="hs-title"></h2>
+
+        <div class="hs-names">
+            <p><b>국문명:</b> <span id="nameKor"></span></p>
+            <p><b>영문명:</b> <span id="nameEng"></span></p>
+        </div>
+
+        <div class="hs-desc">
+            <p><b>설명:</b></p>
+            <p id="description"></p>
+        </div>
+
+        <!-- ✅ 버튼은 HTML에 고정 -->
+        <button id="showTariffBtn" class="btn">관세율 보기</button>
+    </div>
+
+    <!-- 관세율 모달 -->
+    <div id="tariffModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>미국 수입 기준 관세율</h2>
+            <div id="tariffContent"></div>
+        </div>
+    </div>
 </div>
 
 <script src="/js/detail.js"></script>
