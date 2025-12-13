@@ -7,7 +7,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "hs_us_mapping",
         indexes = {
-                @Index(name = "idx_hs_code", columnList = "hsCode")
+                @Index(name = "idx_hs_code", columnList = "hs_code")
         })
 public class HsUsMapping {
 
@@ -28,6 +28,12 @@ public class HsUsMapping {
     @Setter
     @Column(name = "korea_hs10", nullable = false, length = 10)
     private String koreaHs10;
+
+    /** 한국 HS 코드 (DB 호환 컬럼) */
+    @Getter
+    @Setter
+    @Column(name = "hs_code", nullable = false, length = 10)
+    private String hsCode;
 
     /** 미국 코드 */
     @Getter

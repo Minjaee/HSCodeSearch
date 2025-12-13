@@ -4,8 +4,26 @@
     <meta charset="UTF-8">
     <title>HSCode Detail</title>
     <link rel="stylesheet" href="/css/detail.css">
+    <link rel="stylesheet" href="/css/menu.css">
 </head>
 <body>
+
+<div id="tariffMenu" class="side-menu tariff-menu">
+    <div class="menu-header">
+        <div class="menu-logo" onclick="goMain()">
+            <img src="/img/MainLogo.png" alt="Logo">
+        </div>
+        <span class="close-btn" onclick="toggleTariffMenu(false)">✕</span>
+    </div>
+
+    <div class="tariff-panel">
+        <h3>관세율 정보</h3>
+        <p class="tariff-panel__hint">관세율 보기 버튼을 눌러 데이터를 불러옵니다.</p>
+        <div id="tariffInfo" class="tariff-info">
+            <p class="tariff-empty">아직 조회된 관세 정보가 없습니다.</p>
+        </div>
+    </div>
+</div>
 
 <div class="detail-wrapper">
     <div class="header">
@@ -28,15 +46,6 @@
 
         <!-- ✅ 버튼은 HTML에 고정 -->
         <button id="showTariffBtn" class="btn">관세율 보기</button>
-    </div>
-
-    <!-- 관세율 모달 -->
-    <div id="tariffModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>미국 수입 기준 관세율</h2>
-            <div id="tariffContent"></div>
-        </div>
     </div>
 </div>
 

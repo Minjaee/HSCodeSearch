@@ -23,6 +23,14 @@ public class UsTariff {
     private String hs6Code;
 
     /**
+     * 전체 HS 코드(필수 컬럼 호환을 위해 저장)
+     */
+    @Getter
+    @Setter
+    @Column(name = "hs_code", nullable = false, length = 20)
+    private String hsCode;
+
+    /**
      * 영문 설명
      */
     @Getter
