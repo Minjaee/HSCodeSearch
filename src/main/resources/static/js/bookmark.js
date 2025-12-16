@@ -26,12 +26,16 @@ async function loadBookmarks() {
         }
 
         list.forEach((item) => {
+            const escapedHsCode = escapeHtml(item.hsCode);
+            const escapedNameKor = escapeHtml(item.nameKor || "");
+            const escapedNameEng = escapeHtml(item.nameEng || "");
+            
             container.innerHTML += `
-                <div class="result-item" onclick="openDetail('${item.hsCode}')">
-                    <span class="delete-bookmark" onclick="event.stopPropagation(); deleteBookmark('${item.hsCode}')">✕</span>
+                <div class="result-item" onclick="openDetail('${escapedHsCode}', '${escapedNameKor.replace(/'/g, "\\'")}', '${escapedNameEng.replace(/'/g, "\\'")}')">
+                    <span class="delete-bookmark" onclick="event.stopPropagation(); deleteBookmark('${escapedHsCode}')">✕</span>
                     <div class="result-code"><b>${formatHSCode(item.hsCode)}</b></div>
-                    <div class="result-name">${item.nameKor ?? ""}</div>
-                    <div class="result-eng">${item.nameEng ?? ""}</div>
+                    <div class="result-name">${escapedNameKor}</div>
+                    <div class="result-eng">${escapedNameEng}</div>
                 </div>
             `;
         });
@@ -63,8 +67,39 @@ async function deleteBookmark(hsCode) {
 }
 
 // 상세 페이지로 이동
-function openDetail(hsCode) {
+async function openDetail(hsCode, nameKor = "", nameEng = "") {
+    // History 저장 (비동기로 처리, 실패해도 페이지 이동은 계속)
+    try {
+        const params = new URLSearchParams({
+            hsCode: hsCode,
+            nameKor: nameKor || "",
+            nameEng: nameEng || ""
+        });
+        await fetch("/api/history", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: params.toString()
+        });
+    } catch (error) {
+        // History 저장 실패해도 조용히 처리
+        console.error("History 저장 실패:", error);
+    }
+    
     window.location.href = `/detail?code=${hsCode}`;
+}
+
+// HTML 이스케이프 (XSS 방지)
+function escapeHtml(text) {
+    const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+    return text.replace(/[&<>"']/g, m => map[m]);
 }
 
 // HSCode 포맷

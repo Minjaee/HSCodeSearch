@@ -29,6 +29,11 @@ function goLogin() {
     window.location.href = "/login";
 }
 
+// 전역 함수로 노출 (HTML에서 호출 가능하도록)
+window.goLogin = goLogin;
+window.goBookmark = goBookmark;
+window.goHistory = goHistory;
+
 function goMain() {
     window.location.href = "/";
 }
@@ -71,4 +76,8 @@ async function doLogout() {
 
 function goBookmark() {
     window.location.href = "/bookmark";
+}
+
+function goHistory() {
+    window.location.href = "/history";
 }

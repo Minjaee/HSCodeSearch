@@ -32,7 +32,7 @@
 }
 
 .side-menu.large {
-    height: 280px;   /* Bookmark 포함 충분한 높이 */ /* 로그인 후 메뉴 높이 */
+    height: 350px;   /* Bookmark + History 포함 충분한 높이 */ /* 로그인 후 메뉴 높이 */
 }
 
 /* 메뉴 상단 */

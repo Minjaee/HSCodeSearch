@@ -1,0 +1,101 @@
+body {
+    background: #ffffff;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.history-wrapper {
+    width: 100%;
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 120px 20px 60px;
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.history-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #FF8037;
+}
+
+.clear-history-btn {
+    padding: 10px 20px;
+    background: #FF8037;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.clear-history-btn:hover {
+    background: #356B96;
+}
+
+.history-logo {
+    width: 100%;
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 40px;
+}
+
+.history-logo img {
+    width: 300px;
+    height: auto;
+    cursor: pointer;
+}
+
+/* 검색결과 카드 스타일 재활용 */
+.result-item {
+    position: relative;
+    border: 1px solid #ddd;
+    padding: 18px 20px;
+    padding-right: 60px;
+    border-radius: 14px;
+    background: #fff;
+    margin-bottom: 14px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+    cursor: pointer;
+}
+
+.result-item:hover {
+    background: #FFF4EC;
+}
+
+/* 북마크 아이콘 */
+.bookmark-icon {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    width: 22px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: 0.2s;
+    z-index: 10;
+}
+
+.bookmark-icon:hover {
+    opacity: 1;
+}
+
+/* 저장된 북마크 색 강조 */
+.bookmark-icon.bookmarked {
+    filter: brightness(0) saturate(100%) invert(67%) sepia(73%) saturate(600%) hue-rotate(330deg);
+    opacity: 1;
+}
+
+.empty-box {
+    margin-top: 100px;
+    text-align: center;
+    font-size: 18px;
+    color: #999;
+}

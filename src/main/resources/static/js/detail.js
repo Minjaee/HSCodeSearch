@@ -30,9 +30,33 @@ async function loadDetail() {
     document.getElementById("nameKor").innerText = data.nameKor ?? "정보 없음";
     document.getElementById("nameEng").innerText = data.nameEng ?? "정보 없음";
     document.getElementById("description").innerText = data.description ?? "설명 없음";
+    
+    // 관세율 정보 패널에 국문명 표시
+    const tariffHint = document.getElementById("tariffPanelHint");
+    if (tariffHint) {
+        tariffHint.textContent = data.nameKor ?? "정보 없음";
+    }
 
     const btn = document.getElementById("showTariffBtn");
     btn.addEventListener("click", handleTariffClick);
+
+    // History 저장 (비동기로 처리, 실패해도 계속 진행)
+    try {
+        const params = new URLSearchParams({
+            hsCode: data.hsCode,
+            nameKor: data.nameKor || "",
+            nameEng: data.nameEng || ""
+        });
+        await fetch("/api/history", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: params.toString()
+        });
+    } catch (error) {
+        console.error("History 저장 실패:", error);
+    }
 
     // 북마크 상태 확인 및 표시
     await refreshBookmarkIcon();

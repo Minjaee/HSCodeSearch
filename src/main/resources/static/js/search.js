@@ -38,7 +38,7 @@ async function doSearch() {
     }
 
     const html = data.map(item => `
-    <div class="result-item" onclick="openDetail('${item.hsCode}')">
+    <div class="result-item" onclick="openDetail('${item.hsCode}', '${(item.nameKor ?? "").replace(/'/g, "\\'")}', '${(item.nameEng ?? "").replace(/'/g, "\\'")}')">
 
             <!-- 북마크 아이콘 -->
            <img src="/img/bookmark_icon.png"
@@ -164,6 +164,25 @@ async function refreshBookmarkIcons() {
     }
 }
 
-function openDetail(hsCode) {
+async function openDetail(hsCode, nameKor = "", nameEng = "") {
+    // History 저장 (비동기로 처리, 실패해도 페이지 이동은 계속)
+    try {
+        const params = new URLSearchParams({
+            hsCode: hsCode,
+            nameKor: nameKor || "",
+            nameEng: nameEng || ""
+        });
+        await fetch("/api/history", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: params.toString()
+        });
+    } catch (error) {
+        // History 저장 실패해도 조용히 처리
+        console.error("History 저장 실패:", error);
+    }
+    
     window.location.href = `/detail?code=${hsCode}`;
 }

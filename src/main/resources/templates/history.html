@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>My Bookmarks</title>
+  <title>History</title>
 
   <!-- 공통 CSS -->
   <link rel="stylesheet" href="/css/search.css">
   <link rel="stylesheet" href="/css/menu.css">
 
-  <!-- 북마크 전용 CSS -->
-  <link rel="stylesheet" href="/css/bookmark.css">
+  <!-- History 전용 CSS -->
+  <link rel="stylesheet" href="/css/history.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -52,26 +52,29 @@
 <script src="/js/menu.js"></script>
 
 <!-- 상단 로고 -->
-<div class="bookmark-logo">
+<div class="history-logo">
   <a href="/">
     <img src="/img/MainLogo.png" alt="logo">
   </a>
 </div>
 
-<div class="bookmark-wrapper">
+<div class="history-wrapper">
 
-  <div class="bookmark-title">My Bookmarks</div>
+  <div class="history-header">
+    <div class="history-title">History</div>
+    <button class="clear-history-btn" onclick="clearHistory()">History 초기화</button>
+  </div>
 
-  <div id="bookmarkList"></div>
+  <div id="historyList"></div>
 
   <div id="emptyMessage" class="empty-box" style="display:none;">
-    저장된 북마크가 없습니다.
+    검색 기록이 없습니다.
   </div>
 
 </div>
 
-<!-- 북마크 전용 JS -->
-<script src="/js/bookmark.js"></script>
+<!-- History 전용 JS -->
+<script src="/js/history.js"></script>
 
 </body>
 </html>
