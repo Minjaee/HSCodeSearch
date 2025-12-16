@@ -80,45 +80,88 @@ function isLoggedIn() {
     return localStorage.getItem("loginUser") !== null;
 }
 
-function toggleBookmark(hsCode, nameKor, nameEng) {
-    if (!isLoggedIn()) {
+async function toggleBookmark(hsCode, nameKor, nameEng) {
+    // 로그인 확인
+    const userRes = await fetch("/api/user");
+    if (!userRes.ok || !(await userRes.json())) {
         alert("로그인이 필요합니다.");
         window.location.href = "/login";
         return;
     }
 
-    let bookmarks = JSON.parse(localStorage.getItem("bookmarks") || "[]");
+    // 북마크 존재 여부 확인
+    const checkRes = await fetch(`/api/bookmarks/check?hsCode=${encodeURIComponent(hsCode)}`);
+    const exists = await checkRes.json();
 
-    const exists = bookmarks.find(b => b.hsCode === hsCode);
-
-    if (exists) {
-        // 삭제
-        bookmarks = bookmarks.filter(b => b.hsCode !== hsCode);
-    } else {
-        // 추가
-        bookmarks.push({
-            hsCode,
-            nameKor,
-            nameEng
-        });
+    try {
+        if (exists) {
+            // 삭제
+            const deleteRes = await fetch(`/api/bookmarks?hsCode=${encodeURIComponent(hsCode)}`, {
+                method: "DELETE"
+            });
+            if (!deleteRes.ok) {
+                throw new Error("북마크 삭제에 실패했습니다.");
+            }
+        } else {
+            // 추가
+            const params = new URLSearchParams({
+                hsCode: hsCode,
+                nameKor: nameKor || "",
+                nameEng: nameEng || ""
+            });
+            const addRes = await fetch("/api/bookmarks", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: params.toString()
+            });
+            if (!addRes.ok) {
+                const errorText = await addRes.text();
+                throw new Error(errorText || "북마크 추가에 실패했습니다.");
+            }
+        }
+        refreshBookmarkIcons();
+    } catch (error) {
+        alert(error.message);
     }
-
-    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
-
-    refreshBookmarkIcons();
 }
 
-function refreshBookmarkIcons() {
-    const bookmarks = JSON.parse(localStorage.getItem("bookmarks") || "[]");
+async function refreshBookmarkIcons() {
+    try {
+        const res = await fetch("/api/bookmarks");
+        if (!res.ok) {
+            // 로그인 안 되어 있으면 모든 북마크 아이콘 제거
+            document.querySelectorAll(".bookmark-icon").forEach(icon => {
+                icon.classList.remove("bookmarked");
+            });
+            return;
+        }
 
-    document.querySelectorAll(".result-item").forEach(card => {
-        const code = card.querySelector(".result-code").innerText.replace(/\./g, "").trim();
-        const icon = card.querySelector(".bookmark-icon");
+        const bookmarks = await res.json();
 
-        const exists = bookmarks.find(b => b.hsCode.replace(/\D/g, "") === code);
-        if (exists) icon.classList.add("bookmarked");
-        else icon.classList.remove("bookmarked");
-    });
+        document.querySelectorAll(".result-item").forEach(card => {
+            const codeEl = card.querySelector(".result-code");
+            if (!codeEl) return;
+            
+            const code = codeEl.innerText.replace(/\./g, "").trim();
+            const icon = card.querySelector(".bookmark-icon");
+            if (!icon) return;
+
+            const exists = bookmarks.find(b => {
+                const bookmarkCode = b.hsCode.replace(/\D/g, "");
+                return bookmarkCode === code;
+            });
+            
+            if (exists) {
+                icon.classList.add("bookmarked");
+            } else {
+                icon.classList.remove("bookmarked");
+            }
+        });
+    } catch (error) {
+        console.error("북마크 상태 업데이트 실패:", error);
+    }
 }
 
 function openDetail(hsCode) {
