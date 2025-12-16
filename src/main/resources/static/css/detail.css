@@ -79,10 +79,39 @@
     font-size: 16px;
 }
 
+.hs-title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+}
+
 .hs-title {
     font-size: 26px;
     font-weight: 700;
     color: #FF8037;
+    margin: 0;
+}
+
+/* 북마크 아이콘 */
+.bookmark-icon {
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.bookmark-icon:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* 저장된 북마크 색 강조 */
+.bookmark-icon.bookmarked {
+    filter: brightness(0) saturate(100%) invert(67%) sepia(73%) saturate(600%) hue-rotate(330deg);
+    opacity: 1;
 }
 
 .hs-names, .hs-desc {

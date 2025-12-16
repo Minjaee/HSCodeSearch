@@ -43,23 +43,22 @@ async function loadBookmarks() {
 
 // 북마크 삭제
 async function deleteBookmark(hsCode) {
-    if (!confirm("북마크를 삭제하시겠습니까?")) {
-        return;
-    }
-
     try {
         const res = await fetch(`/api/bookmarks?hsCode=${encodeURIComponent(hsCode)}`, {
             method: "DELETE"
         });
         
         if (!res.ok) {
-            throw new Error("북마크 삭제에 실패했습니다.");
+            const errorText = await res.text();
+            console.error("북마크 삭제 실패:", errorText);
+            alert("북마크 삭제에 실패했습니다.");
+            return;
         }
 
         loadBookmarks();
     } catch (error) {
-        alert(error.message);
         console.error("북마크 삭제 실패:", error);
+        alert("북마크 삭제 중 오류가 발생했습니다.");
     }
 }
 

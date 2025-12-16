@@ -85,8 +85,12 @@ public class BookmarkController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
         }
 
-        bookmarkRepository.deleteByUserAndHsCode(loginUser, hsCode);
-        return ResponseEntity.ok("success");
+        try {
+            bookmarkRepository.deleteByUserAndHsCode(loginUser, hsCode);
+            return ResponseEntity.ok("success");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("북마크 삭제 중 오류가 발생했습니다.");
+        }
     }
 
     // 북마크 확인 (특정 hsCode가 북마크에 있는지 확인)
