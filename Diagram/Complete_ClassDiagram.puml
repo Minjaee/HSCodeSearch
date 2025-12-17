@@ -1,0 +1,598 @@
+@startuml HSCodeSearch Complete Class Diagram
+
+!define ENTITY_COLOR #E1F5FF
+!define CONTROLLER_COLOR #FFE1F5
+!define SERVICE_COLOR #E1FFE1
+!define REPOSITORY_COLOR #FFF5E1
+!define DTO_COLOR #F0E1FF
+!define CONFIG_COLOR #E1FFE1
+!define LOADER_COLOR #FFE1E1
+
+skinparam class {
+    BackgroundColor ENTITY_COLOR
+    BorderColor #000000
+    ArrowColor #000000
+}
+
+' ============================================
+' ENTITY CLASSES
+' ============================================
+package "HSCodeSearch.HSCodeSearch.entity" ENTITY_COLOR {
+    
+    class User {
+        - Long id
+        - String username
+        - String email
+        - String password
+        + getId(): Long
+        + getUsername(): String
+        + getEmail(): String
+        + getPassword(): String
+        + setId(id: Long): void
+        + setUsername(username: String): void
+        + setEmail(email: String): void
+        + setPassword(password: String): void
+    }
+    
+    class HsCode {
+        - Long id
+        - String hsCode
+        - String nameKor
+        - String nameEng
+        - String exportCode
+        - String importCode
+        - String unifiedCode
+        - String unifiedName
+        + HsCode()
+        + getId(): Long
+        + getHsCode(): String
+        + setHsCode(hsCode: String): void
+        + getNameKor(): String
+        + setNameKor(nameKor: String): void
+        + getNameEng(): String
+        + setNameEng(nameEng: String): void
+        + getExportCode(): String
+        + setExportCode(exportCode: String): void
+        + getImportCode(): String
+        + setImportCode(importCode: String): void
+        + getUnifiedCode(): String
+        + setUnifiedCode(unifiedCode: String): void
+        + getUnifiedName(): String
+        + setUnifiedName(unifiedName: String): void
+    }
+    
+    class Bookmark {
+        - Long id
+        - User user
+        - String hsCode
+        - String nameKor
+        - String nameEng
+        + Bookmark()
+        + Bookmark(user: User, hsCode: String, nameKor: String, nameEng: String)
+        + getId(): Long
+        + getUser(): User
+        + setUser(user: User): void
+        + getHsCode(): String
+        + setHsCode(hsCode: String): void
+        + getNameKor(): String
+        + setNameKor(nameKor: String): void
+        + getNameEng(): String
+        + setNameEng(nameEng: String): void
+    }
+    
+    class History {
+        - Long id
+        - User user
+        - String hsCode
+        - String nameKor
+        - String nameEng
+        - LocalDateTime createdAt
+        + History()
+        + History(user: User, hsCode: String, nameKor: String, nameEng: String)
+        + onCreate(): void
+        + getId(): Long
+        + getUser(): User
+        + setUser(user: User): void
+        + getHsCode(): String
+        + setHsCode(hsCode: String): void
+        + getNameKor(): String
+        + setNameKor(nameKor: String): void
+        + getNameEng(): String
+        + setNameEng(nameEng: String): void
+        + getCreatedAt(): LocalDateTime
+        + setCreatedAt(createdAt: LocalDateTime): void
+    }
+    
+    class UsTariff {
+        - Long id
+        - String hs6Code
+        - String hsCode
+        - String descEng
+        - String descKor
+        - String rateGeneral
+        - String rateSpecial
+        - String rateDuty2
+        - String unit
+        - String usCode
+        - Integer year
+        + getId(): Long
+        + setId(id: Long): void
+        + getHs6Code(): String
+        + setHs6Code(hs6Code: String): void
+        + getHsCode(): String
+        + setHsCode(hsCode: String): void
+        + getDescEng(): String
+        + setDescEng(descEng: String): void
+        + getDescKor(): String
+        + setDescKor(descKor: String): void
+        + getRateGeneral(): String
+        + setRateGeneral(rateGeneral: String): void
+        + getRateSpecial(): String
+        + setRateSpecial(rateSpecial: String): void
+        + getRateDuty2(): String
+        + setRateDuty2(rateDuty2: String): void
+        + getUnit(): String
+        + setUnit(unit: String): void
+        + getUsCode(): String
+        + setUsCode(usCode: String): void
+        + getYear(): Integer
+        + setYear(year: Integer): void
+    }
+    
+    class HsUsMapping {
+        - Long id
+        - String hs6Code
+        - String koreaHs10
+        - String hsCode
+        - String usCode
+        - Integer priority
+        - String note
+        + getId(): Long
+        + setId(id: Long): void
+        + getHs6Code(): String
+        + setHs6Code(hs6Code: String): void
+        + getKoreaHs10(): String
+        + setKoreaHs10(koreaHs10: String): void
+        + getHsCode(): String
+        + setHsCode(hsCode: String): void
+        + getUsCode(): String
+        + setUsCode(usCode: String): void
+        + getPriority(): Integer
+        + setPriority(priority: Integer): void
+        + getNote(): String
+        + setNote(note: String): void
+    }
+}
+
+' ============================================
+' CONTROLLER CLASSES
+' ============================================
+package "HSCodeSearch.HSCodeSearch.controller" CONTROLLER_COLOR {
+    
+    class AuthController {
+        - UserService userService
+        + signup(username: String, email: String, password: String): String
+        + login(id: String, password: String, session: HttpSession): String
+        + getLoginUser(session: HttpSession): Object
+        + logout(session: HttpSession): String
+    }
+    
+    class AuthPageController {
+        + loginPage(): String
+        + signUpPage(): String
+    }
+    
+    class BookmarkController {
+        - BookmarkRepository bookmarkRepository
+        + bookmarkPage(): String
+        + getBookmarks(session: HttpSession): ResponseEntity<?>
+        + addBookmark(hsCode: String, nameKor: String, nameEng: String, session: HttpSession): ResponseEntity<?>
+        + deleteBookmark(hsCode: String, session: HttpSession): ResponseEntity<?>
+        + checkBookmark(hsCode: String, session: HttpSession): ResponseEntity<?>
+    }
+    
+    class DetailController {
+        + detailPage(): String
+    }
+    
+    class HistoryController {
+        - HistoryRepository historyRepository
+        + historyPage(): String
+        + getHistory(session: HttpSession): ResponseEntity<?>
+        + addHistory(hsCode: String, nameKor: String, nameEng: String, session: HttpSession): ResponseEntity<?>
+        + clearHistory(session: HttpSession): ResponseEntity<?>
+    }
+    
+    class HomeController {
+        + home(): String
+    }
+    
+    class SearchController {
+        - HsCodeRepository repo
+        + SearchController(repo: HsCodeRepository)
+        + search(q: String): List<HsCode>
+        + detail(code: String): HsCode
+    }
+    
+    class TariffController {
+        - TariffService tariffService
+        + TariffController(tariffService: TariffService)
+        + getUsTariff(hsCode: String): ResponseEntity<?>
+    }
+}
+
+' ============================================
+' SERVICE CLASSES
+' ============================================
+package "HSCodeSearch.HSCodeSearch.service" SERVICE_COLOR {
+    
+    class UserService {
+        - UserRepository userRepo
+        - BCryptPasswordEncoder passwordEncoder
+        + register(username: String, email: String, password: String): void
+        + login(usernameOrEmail: String, password: String): User
+    }
+    
+    class TariffService {
+        - HsUsMappingRepository hsUsMappingRepository
+        - UsTariffRepository usTariffRepository
+        + TariffService(hsUsMappingRepository: HsUsMappingRepository, usTariffRepository: UsTariffRepository)
+        + getUsTariffByHsCode(hsCode: String): Optional<UsTariff>
+    }
+}
+
+' ============================================
+' REPOSITORY INTERFACES
+' ============================================
+package "HSCodeSearch.HSCodeSearch.repository" REPOSITORY_COLOR {
+    
+    interface UserRepository {
+        + existsByUsername(username: String): boolean
+        + existsByEmail(email: String): boolean
+        + findByUsername(username: String): User
+        + findByEmail(email: String): User
+    }
+    
+    interface HsCodeRepository {
+        + findByHsCodeContainingOrNameKorContainingOrNameEngContaining(hsCode: String, nameKor: String, nameEng: String): List<HsCode>
+        + findByHsCode(hsCode: String): HsCode
+    }
+    
+    interface BookmarkRepository {
+        + findByUser(user: User): List<Bookmark>
+        + findByUserAndHsCode(user: User, hsCode: String): Optional<Bookmark>
+        + existsByUserAndHsCode(user: User, hsCode: String): boolean
+        + deleteByUserAndHsCode(user: User, hsCode: String): void
+    }
+    
+    interface HistoryRepository {
+        + findByUserOrderByCreatedAtDesc(user: User): List<History>
+        + deleteAllByUser(user: User): void
+        + countByUser(user: User): long
+    }
+    
+    interface UsTariffRepository {
+        + findByHs6Code(hs6Code: String): Optional<UsTariff>
+        + findByUsCode(usCode: String): Optional<UsTariff>
+        + findFirstByHs6CodeOrderByIdAsc(hs6Code: String): Optional<UsTariff>
+    }
+    
+    interface HsUsMappingRepository {
+        + findByHs6Code(hs6Code: String): Optional<HsUsMapping>
+        + findByKoreaHs10(koreaHs10: String): Optional<HsUsMapping>
+        + findFirstByHs6CodeOrderByPriorityAscIdAsc(hs6Code: String): Optional<HsUsMapping>
+    }
+}
+
+' ============================================
+' DTO CLASSES
+' ============================================
+package "HSCodeSearch.HSCodeSearch.dto" DTO_COLOR {
+    
+    class HsCodeEntry {
+        - String code
+        - String name
+        - String description
+        + HsCodeEntry()
+        + HsCodeEntry(code: String, name: String, description: String)
+        + getCode(): String
+        + getName(): String
+        + getDescription(): String
+    }
+    
+    class UsTariffResponse {
+        - String usCode
+        - String descEng
+        - BigDecimal rateGeneral
+        - BigDecimal rateSpecial
+        + UsTariffResponse()
+        + UsTariffResponse(usCode: String, descEng: String, rateGeneral: BigDecimal, rateSpecial: BigDecimal)
+        + getUsCode(): String
+        + setUsCode(usCode: String): void
+        + getDescEng(): String
+        + setDescEng(descEng: String): void
+        + getRateGeneral(): BigDecimal
+        + setRateGeneral(rateGeneral: BigDecimal): void
+        + getRateSpecial(): BigDecimal
+        + setRateSpecial(rateSpecial: BigDecimal): void
+    }
+}
+
+' ============================================
+' CONFIG CLASSES
+' ============================================
+package "HSCodeSearch.HSCodeSearch.config" CONFIG_COLOR {
+    
+    class SecurityConfig {
+        + filterChain(http: HttpSecurity): SecurityFilterChain
+    }
+    
+    class PasswordConfig {
+        + passwordEncoder(): BCryptPasswordEncoder
+    }
+}
+
+' ============================================
+' LOADER CLASSES
+' ============================================
+package "HSCodeSearch.HSCodeSearch.loader" LOADER_COLOR {
+    
+    class HsUsMappingLoader {
+        - HsCodeRepository hsCodeRepository
+        - HsUsMappingRepository hsUsMappingRepository
+        - UsTariffRepository usTariffRepository
+        + HsUsMappingLoader(hsCodeRepository: HsCodeRepository, hsUsMappingRepository: HsUsMappingRepository, usTariffRepository: UsTariffRepository)
+        + run(args: ApplicationArguments): void
+        - isMoreSpecific(candidate: String, current: String): boolean
+        - extractDigits(value: String): String
+        - safeSix(value: String): String
+    }
+    
+    class UsTariffLoader {
+        - UsTariffRepository usTariffRepository
+        + UsTariffLoader(usTariffRepository: UsTariffRepository)
+        + run(args: ApplicationArguments): void
+        - parseCsvLine(line: String): String[]
+        - safeTrim(row: String[], index: int): String
+        - extractHs6(usCode: String): String
+        - cleanValue(value: String): String
+        - parseYear(rawYear: String): Integer
+    }
+}
+
+' ============================================
+' APPLICATION CLASS
+' ============================================
+package "HSCodeSearch.HSCodeSearch" {
+    
+    class HsCodeSearchApplication {
+        + main(args: String[]): void
+    }
+}
+
+' ============================================
+' EXTERNAL DEPENDENCIES
+' ============================================
+package "Spring Framework" #CCCCCC {
+    interface JpaRepository<T, ID> {
+        <<interface>>
+    }
+    
+    class BCryptPasswordEncoder {
+        + encode(rawPassword: CharSequence): String
+        + matches(rawPassword: CharSequence, encodedPassword: String): boolean
+    }
+    
+    class HttpSecurity {
+    }
+    
+    class SecurityFilterChain {
+        <<interface>>
+    }
+    
+    class ApplicationRunner {
+        <<interface>>
+        + run(args: ApplicationArguments): void
+    }
+    
+    class ResponseEntity<T> {
+    }
+    
+    class HttpSession {
+        + setAttribute(name: String, value: Object): void
+        + getAttribute(name: String): Object
+        + invalidate(): void
+    }
+}
+
+' ============================================
+' RELATIONSHIPS - Entity Relationships
+' ============================================
+Bookmark "N" --> "1" User : @ManyToOne
+History "N" --> "1" User : @ManyToOne
+
+' ============================================
+' RELATIONSHIPS - Controller Dependencies
+' ============================================
+AuthController --> UserService : uses
+AuthPageController ..> UserService : (indirect)
+BookmarkController --> BookmarkRepository : uses
+BookmarkController --> User : uses (via session)
+HistoryController --> HistoryRepository : uses
+HistoryController --> User : uses (via session)
+SearchController --> HsCodeRepository : uses
+TariffController --> TariffService : uses
+
+' ============================================
+' RELATIONSHIPS - Service Dependencies
+' ============================================
+UserService --> UserRepository : uses
+UserService --> BCryptPasswordEncoder : uses
+UserService --> User : creates/returns
+TariffService --> HsUsMappingRepository : uses
+TariffService --> UsTariffRepository : uses
+TariffService --> UsTariff : returns
+TariffService --> HsUsMapping : uses
+
+' ============================================
+' RELATIONSHIPS - Repository Inheritance
+' ============================================
+UserRepository ..|> JpaRepository : extends
+HsCodeRepository ..|> JpaRepository : extends
+BookmarkRepository ..|> JpaRepository : extends
+HistoryRepository ..|> JpaRepository : extends
+UsTariffRepository ..|> JpaRepository : extends
+HsUsMappingRepository ..|> JpaRepository : extends
+
+' ============================================
+' RELATIONSHIPS - Repository to Entity
+' ============================================
+UserRepository --> User : manages
+HsCodeRepository --> HsCode : manages
+BookmarkRepository --> Bookmark : manages
+HistoryRepository --> History : manages
+UsTariffRepository --> UsTariff : manages
+HsUsMappingRepository --> HsUsMapping : manages
+
+' ============================================
+' RELATIONSHIPS - Loader Dependencies
+' ============================================
+HsUsMappingLoader --> HsCodeRepository : uses
+HsUsMappingLoader --> HsUsMappingRepository : uses
+HsUsMappingLoader --> UsTariffRepository : uses
+HsUsMappingLoader --> HsCode : uses
+HsUsMappingLoader --> HsUsMapping : creates
+HsUsMappingLoader --> UsTariff : uses
+HsUsMappingLoader ..|> ApplicationRunner : implements
+
+UsTariffLoader --> UsTariffRepository : uses
+UsTariffLoader --> UsTariff : creates
+UsTariffLoader ..|> ApplicationRunner : implements
+
+' ============================================
+' RELATIONSHIPS - Config Dependencies
+' ============================================
+SecurityConfig --> HttpSecurity : uses
+SecurityConfig --> SecurityFilterChain : returns
+PasswordConfig --> BCryptPasswordEncoder : creates
+
+' ============================================
+' RELATIONSHIPS - Application
+' ============================================
+HsCodeSearchApplication ..> HsCode : (manages)
+HsCodeSearchApplication ..> User : (manages)
+
+' ============================================
+' NOTES
+' ============================================
+note right of User
+    JPA @Entity
+    Table: users
+    Primary Key: id
+end note
+
+note right of Bookmark
+    JPA @Entity
+    Table: bookmarks
+    Unique Constraint: (user_id, hs_code)
+    Many-to-One with User
+end note
+
+note right of History
+    JPA @Entity
+    Table: history
+    Many-to-One with User
+    Auto-creates createdAt timestamp
+end note
+
+note right of HsCode
+    JPA @Entity
+    Table: hs_code
+    Core HS code data entity
+end note
+
+note right of UsTariff
+    JPA @Entity
+    Table: us_tariff
+    US tariff information
+end note
+
+note right of HsUsMapping
+    JPA @Entity
+    Table: hs_us_mapping
+    Maps Korean HS codes to US codes
+    Index on hs_code
+end note
+
+note right of AuthController
+    Spring @Controller
+    Endpoints:
+    - POST /signup
+    - POST /api/login
+    - GET /api/user
+    - POST /logout
+end note
+
+note right of BookmarkController
+    Spring @Controller
+    Endpoints:
+    - GET /bookmark
+    - GET /api/bookmarks
+    - POST /api/bookmarks
+    - DELETE /api/bookmarks
+    - GET /api/bookmarks/check
+end note
+
+note right of HistoryController
+    Spring @Controller
+    Endpoints:
+    - GET /history
+    - GET /api/history
+    - POST /api/history
+    - DELETE /api/history
+    Maintains max 20 recent searches
+end note
+
+note right of SearchController
+    Spring @RestController
+    Endpoints:
+    - GET /api/search?q={query}
+    - GET /api/detail?code={code}
+end note
+
+note right of TariffController
+    Spring @RestController
+    Endpoint:
+    - GET /api/tariff/us/{hsCode}
+end note
+
+note right of UserService
+    Spring @Service
+    Business logic for:
+    - User registration with validation
+    - User login (username or email)
+    - Password encryption
+end note
+
+note right of TariffService
+    Spring @Service
+    Business logic for:
+    - Finding US tariff by HS code
+    - HS code to US code mapping
+end note
+
+note right of HsUsMappingLoader
+    Spring @Component
+    @Order(2)
+    Loads HS-US mapping data
+    Runs after UsTariffLoader
+end note
+
+note right of UsTariffLoader
+    Spring @Component
+    @Order(1)
+    Loads US tariff data from CSV
+    Runs on application startup
+end note
+
+@enduml

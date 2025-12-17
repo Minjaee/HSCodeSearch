@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HSCodeSearch 클래스 다이어그램 뷰어</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .diagram-container {
+            background-color: #fafafa;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        .info-section {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+        .info-section h2 {
+            color: #555;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .stat-card {
+            background-color: white;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #4CAF50;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .stat-card h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 18px;
+        }
+        .stat-card .count {
+            font-size: 32px;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        .legend {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .legend-item {
+            display: inline-block;
+            margin: 10px 20px;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .entity { background-color: #E1F5FF; }
+        .controller { background-color: #FFE1F5; }
+        .service { background-color: #E1FFE1; }
+        .repository { background-color: #FFF5E1; }
+        .dto { background-color: #F0E1FF; }
+        .config { background-color: #E1FFE1; }
+        .loader { background-color: #FFE1E1; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏗️ HSCodeSearch 프로젝트 클래스 다이어그램</h1>
+        
+        <div class="diagram-container">
+            <div class="mermaid">
+classDiagram
+    %% Entity Classes
+    class User {
+        -Long id
+        -String username
+        -String email
+        -String password
+        +getId() Long
+        +getUsername() String
+        +getEmail() String
+        +getPassword() String
+        +setId(Long) void
+        +setUsername(String) void
+        +setEmail(String) void
+        +setPassword(String) void
+    }
+    
+    class HsCode {
+        -Long id
+        -String hsCode
+        -String nameKor
+        -String nameEng
+        -String exportCode
+        -String importCode
+        -String unifiedCode
+        -String unifiedName
+        +HsCode()
+        +getId() Long
+        +getHsCode() String
+        +setHsCode(String) void
+        +getNameKor() String
+        +setNameKor(String) void
+        +getNameEng() String
+        +setNameEng(String) void
+        +getExportCode() String
+        +setExportCode(String) void
+        +getImportCode() String
+        +setImportCode(String) void
+        +getUnifiedCode() String
+        +setUnifiedCode(String) void
+        +getUnifiedName() String
+        +setUnifiedName(String) void
+    }
+    
+    class Bookmark {
+        -Long id
+        -User user
+        -String hsCode
+        -String nameKor
+        -String nameEng
+        +Bookmark()
+        +Bookmark(User, String, String, String)
+        +getId() Long
+        +getUser() User
+        +setUser(User) void
+        +getHsCode() String
+        +setHsCode(String) void
+        +getNameKor() String
+        +setNameKor(String) void
+        +getNameEng() String
+        +setNameEng(String) void
+    }
+    
+    class History {
+        -Long id
+        -User user
+        -String hsCode
+        -String nameKor
+        -String nameEng
+        -LocalDateTime createdAt
+        +History()
+        +History(User, String, String, String)
+        +onCreate() void
+        +getId() Long
+        +getUser() User
+        +setUser(User) void
+        +getHsCode() String
+        +setHsCode(String) void
+        +getNameKor() String
+        +setNameKor(String) void
+        +getNameEng() String
+        +setNameEng(String) void
+        +getCreatedAt() LocalDateTime
+        +setCreatedAt(LocalDateTime) void
+    }
+    
+    class UsTariff {
+        -Long id
+        -String hs6Code
+        -String hsCode
+        -String descEng
+        -String descKor
+        -String rateGeneral
+        -String rateSpecial
+        -String rateDuty2
+        -String unit
+        -String usCode
+        -Integer year
+        +getId() Long
+        +setId(Long) void
+        +getHs6Code() String
+        +setHs6Code(String) void
+        +getHsCode() String
+        +setHsCode(String) void
+        +getDescEng() String
+        +setDescEng(String) void
+        +getDescKor() String
+        +setDescKor(String) void
+        +getRateGeneral() String
+        +setRateGeneral(String) void
+        +getRateSpecial() String
+        +setRateSpecial(String) void
+        +getRateDuty2() String
+        +setRateDuty2(String) void
+        +getUnit() String
+        +setUnit(String) void
+        +getUsCode() String
+        +setUsCode(String) void
+        +getYear() Integer
+        +setYear(Integer) void
+    }
+    
+    class HsUsMapping {
+        -Long id
+        -String hs6Code
+        -String koreaHs10
+        -String hsCode
+        -String usCode
+        -Integer priority
+        -String note
+        +getId() Long
+        +setId(Long) void
+        +getHs6Code() String
+        +setHs6Code(String) void
+        +getKoreaHs10() String
+        +setKoreaHs10(String) void
+        +getHsCode() String
+        +setHsCode(String) void
+        +getUsCode() String
+        +setUsCode(String) void
+        +getPriority() Integer
+        +setPriority(Integer) void
+        +getNote() String
+        +setNote(String) void
+    }
+    
+    %% Controller Classes
+    class AuthController {
+        -UserService userService
+        +signup(String, String, String) String
+        +login(String, String, HttpSession) String
+        +getLoginUser(HttpSession) Object
+        +logout(HttpSession) String
+    }
+    
+    class AuthPageController {
+        +loginPage() String
+        +signUpPage() String
+    }
+    
+    class BookmarkController {
+        -BookmarkRepository bookmarkRepository
+        +bookmarkPage() String
+        +getBookmarks(HttpSession) ResponseEntity
+        +addBookmark(String, String, String, HttpSession) ResponseEntity
+        +deleteBookmark(String, HttpSession) ResponseEntity
+        +checkBookmark(String, HttpSession) ResponseEntity
+    }
+    
+    class DetailController {
+        +detailPage() String
+    }
+    
+    class HistoryController {
+        -HistoryRepository historyRepository
+        +historyPage() String
+        +getHistory(HttpSession) ResponseEntity
+        +addHistory(String, String, String, HttpSession) ResponseEntity
+        +clearHistory(HttpSession) ResponseEntity
+    }
+    
+    class HomeController {
+        +home() String
+    }
+    
+    class SearchController {
+        -HsCodeRepository repo
+        +SearchController(HsCodeRepository)
+        +search(String) List~HsCode~
+        +detail(String) HsCode
+    }
+    
+    class TariffController {
+        -TariffService tariffService
+        +TariffController(TariffService)
+        +getUsTariff(String) ResponseEntity
+    }
+    
+    %% Service Classes
+    class UserService {
+        -UserRepository userRepo
+        -BCryptPasswordEncoder passwordEncoder
+        +register(String, String, String) void
+        +login(String, String) User
+    }
+    
+    class TariffService {
+        -HsUsMappingRepository hsUsMappingRepository
+        -UsTariffRepository usTariffRepository
+        +TariffService(HsUsMappingRepository, UsTariffRepository)
+        +getUsTariffByHsCode(String) Optional~UsTariff~
+    }
+    
+    %% Repository Interfaces
+    class UserRepository {
+        <<interface>>
+        +existsByUsername(String) boolean
+        +existsByEmail(String) boolean
+        +findByUsername(String) User
+        +findByEmail(String) User
+    }
+    
+    class HsCodeRepository {
+        <<interface>>
+        +findByHsCodeContainingOrNameKorContainingOrNameEngContaining(String, String, String) List~HsCode~
+        +findByHsCode(String) HsCode
+    }
+    
+    class BookmarkRepository {
+        <<interface>>
+        +findByUser(User) List~Bookmark~
+        +findByUserAndHsCode(User, String) Optional~Bookmark~
+        +existsByUserAndHsCode(User, String) boolean
+        +deleteByUserAndHsCode(User, String) void
+    }
+    
+    class HistoryRepository {
+        <<interface>>
+        +findByUserOrderByCreatedAtDesc(User) List~History~
+        +deleteAllByUser(User) void
+        +countByUser(User) long
+    }
+    
+    class UsTariffRepository {
+        <<interface>>
+        +findByHs6Code(String) Optional~UsTariff~
+        +findByUsCode(String) Optional~UsTariff~
+        +findFirstByHs6CodeOrderByIdAsc(String) Optional~UsTariff~
+    }
+    
+    class HsUsMappingRepository {
+        <<interface>>
+        +findByHs6Code(String) Optional~HsUsMapping~
+        +findByKoreaHs10(String) Optional~HsUsMapping~
+        +findFirstByHs6CodeOrderByPriorityAscIdAsc(String) Optional~HsUsMapping~
+    }
+    
+    %% DTO Classes
+    class HsCodeEntry {
+        -String code
+        -String name
+        -String description
+        +HsCodeEntry()
+        +HsCodeEntry(String, String, String)
+        +getCode() String
+        +getName() String
+        +getDescription() String
+    }
+    
+    class UsTariffResponse {
+        -String usCode
+        -String descEng
+        -BigDecimal rateGeneral
+        -BigDecimal rateSpecial
+        +UsTariffResponse()
+        +UsTariffResponse(String, String, BigDecimal, BigDecimal)
+        +getUsCode() String
+        +setUsCode(String) void
+        +getDescEng() String
+        +setDescEng(String) void
+        +getRateGeneral() BigDecimal
+        +setRateGeneral(BigDecimal) void
+        +getRateSpecial() BigDecimal
+        +setRateSpecial(BigDecimal) void
+    }
+    
+    %% Config Classes
+    class SecurityConfig {
+        +filterChain(HttpSecurity) SecurityFilterChain
+    }
+    
+    class PasswordConfig {
+        +passwordEncoder() BCryptPasswordEncoder
+    }
+    
+    %% Loader Classes
+    class HsUsMappingLoader {
+        -HsCodeRepository hsCodeRepository
+        -HsUsMappingRepository hsUsMappingRepository
+        -UsTariffRepository usTariffRepository
+        +HsUsMappingLoader(HsCodeRepository, HsUsMappingRepository, UsTariffRepository)
+        +run(ApplicationArguments) void
+        -isMoreSpecific(String, String) boolean
+        -extractDigits(String) String
+        -safeSix(String) String
+    }
+    
+    class UsTariffLoader {
+        -UsTariffRepository usTariffRepository
+        +UsTariffLoader(UsTariffRepository)
+        +run(ApplicationArguments) void
+        -parseCsvLine(String) String[]
+        -safeTrim(String[], int) String
+        -extractHs6(String) String
+        -cleanValue(String) String
+        -parseYear(String) Integer
+    }
+    
+    %% Application Class
+    class HsCodeSearchApplication {
+        +main(String[]) void
+    }
+    
+    %% Relationships - Entity
+    Bookmark "N" --> "1" User : @ManyToOne
+    History "N" --> "1" User : @ManyToOne
+    
+    %% Relationships - Controller to Service/Repository
+    AuthController --> UserService : uses
+    BookmarkController --> BookmarkRepository : uses
+    BookmarkController --> User : uses
+    HistoryController --> HistoryRepository : uses
+    HistoryController --> User : uses
+    SearchController --> HsCodeRepository : uses
+    TariffController --> TariffService : uses
+    
+    %% Relationships - Service to Repository
+    UserService --> UserRepository : uses
+    UserService --> User : creates
+    TariffService --> HsUsMappingRepository : uses
+    TariffService --> UsTariffRepository : uses
+    TariffService --> UsTariff : returns
+    TariffService --> HsUsMapping : uses
+    
+    %% Relationships - Repository to Entity
+    UserRepository ..> User : manages
+    HsCodeRepository ..> HsCode : manages
+    BookmarkRepository ..> Bookmark : manages
+    HistoryRepository ..> History : manages
+    UsTariffRepository ..> UsTariff : manages
+    HsUsMappingRepository ..> HsUsMapping : manages
+    
+    %% Relationships - Loader
+    HsUsMappingLoader --> HsCodeRepository : uses
+    HsUsMappingLoader --> HsUsMappingRepository : uses
+    HsUsMappingLoader --> UsTariffRepository : uses
+    HsUsMappingLoader --> HsCode : uses
+    HsUsMappingLoader --> HsUsMapping : creates
+    HsUsMappingLoader --> UsTariff : uses
+    UsTariffLoader --> UsTariffRepository : uses
+    UsTariffLoader --> UsTariff : creates
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <h2>📊 클래스 통계</h2>
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <h3>Entity</h3>
+                    <div class="count">6</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Controller</h3>
+                    <div class="count">8</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Service</h3>
+                    <div class="count">2</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Repository</h3>
+                    <div class="count">6</div>
+                </div>
+                <div class="stat-card">
+                    <h3>DTO</h3>
+                    <div class="count">2</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Config</h3>
+                    <div class="count">2</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Loader</h3>
+                    <div class="count">2</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Application</h3>
+                    <div class="count">1</div>
+                </div>
+            </div>
+            <div style="margin-top: 20px; text-align: center; font-size: 20px; font-weight: bold; color: #4CAF50;">
+                총 클래스 수: <span style="font-size: 28px;">29개</span>
+            </div>
+        </div>
+        
+        <div class="legend">
+            <h2>🎨 범례</h2>
+            <div class="legend-item entity">Entity 클래스</div>
+            <div class="legend-item controller">Controller 클래스</div>
+            <div class="legend-item service">Service 클래스</div>
+            <div class="legend-item repository">Repository 인터페이스</div>
+            <div class="legend-item dto">DTO 클래스</div>
+            <div class="legend-item config">Config 클래스</div>
+            <div class="legend-item loader">Loader 클래스</div>
+        </div>
+    </div>
+    
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
+</body>
+</html>
