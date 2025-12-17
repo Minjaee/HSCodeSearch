@@ -1,5 +1,7 @@
-package HSCodeSearch.HSCodeSearch;
+package HSCodeSearch.HSCodeSearch.service;
 
+import HSCodeSearch.HSCodeSearch.entity.User;
+import HSCodeSearch.HSCodeSearch.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

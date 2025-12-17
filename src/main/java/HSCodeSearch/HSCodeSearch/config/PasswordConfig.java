@@ -1,4 +1,4 @@
-package HSCodeSearch.HSCodeSearch;
+package HSCodeSearch.HSCodeSearch.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

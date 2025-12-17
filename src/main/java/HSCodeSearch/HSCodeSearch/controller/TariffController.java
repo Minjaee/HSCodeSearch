@@ -1,5 +1,6 @@
-package HSCodeSearch.HSCodeSearch;
+package HSCodeSearch.HSCodeSearch.controller;
 
+import HSCodeSearch.HSCodeSearch.service.TariffService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

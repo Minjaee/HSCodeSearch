@@ -1,17 +1,18 @@
-package HSCodeSearch.HSCodeSearch;
+package HSCodeSearch.HSCodeSearch.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "history")
-public class History {
+@Table(name = "bookmarks", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"user_id", "hs_code"})
+})
+public class Bookmark {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,19 +31,10 @@ public class History {
     @Column(name = "name_eng")
     private String nameEng;
 
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
-
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-    }
-
-    public History(User user, String hsCode, String nameKor, String nameEng) {
+    public Bookmark(User user, String hsCode, String nameKor, String nameEng) {
         this.user = user;
         this.hsCode = hsCode;
         this.nameKor = nameKor;
         this.nameEng = nameEng;
-        this.createdAt = LocalDateTime.now();
     }
 }

@@ -1,5 +1,7 @@
-package HSCodeSearch.HSCodeSearch;
+package HSCodeSearch.HSCodeSearch.loader;
 
+import HSCodeSearch.HSCodeSearch.entity.UsTariff;
+import HSCodeSearch.HSCodeSearch.repository.UsTariffRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;

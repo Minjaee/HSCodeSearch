@@ -1,5 +1,6 @@
-package HSCodeSearch.HSCodeSearch;
+package HSCodeSearch.HSCodeSearch.repository;
 
+import HSCodeSearch.HSCodeSearch.entity.UsTariff;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
@@ -10,4 +11,3 @@ public interface UsTariffRepository extends JpaRepository<UsTariff, Long> {
 
     Optional<UsTariff> findFirstByHs6CodeOrderByIdAsc(String hs6Code);
 }
-

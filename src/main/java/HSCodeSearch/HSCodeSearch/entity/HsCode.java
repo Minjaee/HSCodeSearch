@@ -1,10 +1,10 @@
-package HSCodeSearch.HSCodeSearch;
+package HSCodeSearch.HSCodeSearch.entity;
 
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "hs_code")
-public class HSCode {
+public class HsCode {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +31,7 @@ public class HSCode {
     @Column(name = "unified_name")
     private String unifiedName;
 
-    public HSCode() {}
+    public HsCode() {}
 
     public Long getId() { return id; }
 

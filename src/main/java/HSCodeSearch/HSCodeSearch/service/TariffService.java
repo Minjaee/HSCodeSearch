@@ -1,5 +1,9 @@
-package HSCodeSearch.HSCodeSearch;
+package HSCodeSearch.HSCodeSearch.service;
 
+import HSCodeSearch.HSCodeSearch.entity.HsUsMapping;
+import HSCodeSearch.HSCodeSearch.entity.UsTariff;
+import HSCodeSearch.HSCodeSearch.repository.HsUsMappingRepository;
+import HSCodeSearch.HSCodeSearch.repository.UsTariffRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

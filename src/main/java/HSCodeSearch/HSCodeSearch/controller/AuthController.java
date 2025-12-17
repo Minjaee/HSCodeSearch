@@ -1,5 +1,7 @@
-package HSCodeSearch.HSCodeSearch;
+package HSCodeSearch.HSCodeSearch.controller;
 
+import HSCodeSearch.HSCodeSearch.entity.User;
+import HSCodeSearch.HSCodeSearch.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

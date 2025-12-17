@@ -1,4 +1,4 @@
-package HSCodeSearch.HSCodeSearch;
+package HSCodeSearch.HSCodeSearch.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

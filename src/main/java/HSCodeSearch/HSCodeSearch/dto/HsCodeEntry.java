@@ -1,14 +1,14 @@
-package HSCodeSearch.HSCodeSearch;
+package HSCodeSearch.HSCodeSearch.dto;
 
-public class    HSCodeEntry {
+public class HsCodeEntry {
 
     private String code;
     private String name;
     private String description;
 
-    public HSCodeEntry() {}
+    public HsCodeEntry() {}
 
-    public HSCodeEntry(String code, String name, String description) {
+    public HsCodeEntry(String code, String name, String description) {
         this.code = code;
         this.name = name;
         this.description = description;

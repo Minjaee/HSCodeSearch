@@ -1,5 +1,8 @@
-package HSCodeSearch.HSCodeSearch;
+package HSCodeSearch.HSCodeSearch.controller;
 
+import HSCodeSearch.HSCodeSearch.entity.History;
+import HSCodeSearch.HSCodeSearch.entity.User;
+import HSCodeSearch.HSCodeSearch.repository.HistoryRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

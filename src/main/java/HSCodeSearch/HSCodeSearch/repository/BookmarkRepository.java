@@ -1,5 +1,7 @@
-package HSCodeSearch.HSCodeSearch;
+package HSCodeSearch.HSCodeSearch.repository;
 
+import HSCodeSearch.HSCodeSearch.entity.Bookmark;
+import HSCodeSearch.HSCodeSearch.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

@@ -1,4 +1,4 @@
-package HSCodeSearch.HSCodeSearch;
+package HSCodeSearch.HSCodeSearch.dto;
 
 import java.math.BigDecimal;
 

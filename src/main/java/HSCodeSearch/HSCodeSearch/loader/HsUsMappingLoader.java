@@ -1,5 +1,11 @@
-package HSCodeSearch.HSCodeSearch;
+package HSCodeSearch.HSCodeSearch.loader;
 
+import HSCodeSearch.HSCodeSearch.entity.HsCode;
+import HSCodeSearch.HSCodeSearch.entity.HsUsMapping;
+import HSCodeSearch.HSCodeSearch.entity.UsTariff;
+import HSCodeSearch.HSCodeSearch.repository.HsCodeRepository;
+import HSCodeSearch.HSCodeSearch.repository.HsUsMappingRepository;
+import HSCodeSearch.HSCodeSearch.repository.UsTariffRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;
@@ -17,11 +23,11 @@ public class HsUsMappingLoader implements ApplicationRunner {
 
     private static final Logger log = LoggerFactory.getLogger(HsUsMappingLoader.class);
 
-    private final HSCodeRepository hsCodeRepository;
+    private final HsCodeRepository hsCodeRepository;
     private final HsUsMappingRepository hsUsMappingRepository;
     private final UsTariffRepository usTariffRepository;
 
-    public HsUsMappingLoader(HSCodeRepository hsCodeRepository,
+    public HsUsMappingLoader(HsCodeRepository hsCodeRepository,
                              HsUsMappingRepository hsUsMappingRepository,
                              UsTariffRepository usTariffRepository) {
         this.hsCodeRepository = hsCodeRepository;
@@ -57,7 +63,7 @@ public class HsUsMappingLoader implements ApplicationRunner {
         long success = 0;
         long skipped = 0;
 
-        for (HSCode hsCode : hsCodeRepository.findAll()) {
+        for (HsCode hsCode : hsCodeRepository.findAll()) {
             String digits = extractDigits(hsCode.getHsCode());
             if (digits.length() < 10) {
                 skipped++;
@@ -110,4 +116,3 @@ public class HsUsMappingLoader implements ApplicationRunner {
         return digits.substring(0, 6);
     }
 }
-
